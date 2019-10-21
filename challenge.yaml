@@ -1,0 +1,19 @@
+apiVersion: challenge/v1
+kind: Deployment
+metadata:
+  name: challenge-phase-2
+spec:
+  selector:
+  matchLabels:
+    app: react
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: react
+    spec:
+      containers:
+      - name: andela-challenge
+        image: drinkingjava/andela-challenge:1.0
+        ports:
+        - containerPort: 3000
