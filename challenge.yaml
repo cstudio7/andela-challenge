@@ -1,19 +1,33 @@
-apiVersion: challenge/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: challenge-phase-2
+  name: andelachallenge-react
+  namespace: default
 spec:
-  selector:
-  matchLabels:
-    app: react
   replicas: 1
+  selector:
+    matchLabels:
+      andela: react-app
   template:
     metadata:
       labels:
-        app: react
+        andela: react-app
     spec:
       containers:
-      - name: andela-challenge
+      - name: andela-react-app
         image: drinkingjava/andela-challenge:1.0
-        ports:
-        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: andela-react-app-entrypoint
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    andela: react-app
+  ports:
+  - port: 3000
+    targetPort: 3000
+    nodePort: 30001
+
